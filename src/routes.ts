@@ -4,6 +4,7 @@ import {
   createPostHandler,
   removeCommentHandler,
   toggleLikeHandler,
+  getPostsHandler,
 } from "./controller/post.controller";
 import { createUserHandler, loginHandler } from "./controller/user.controller";
 import validateAuth from "./middleware/validateAuth";
@@ -21,12 +22,15 @@ export default function (app: Express) {
   // End-Point Responsible for toggling like on a post
   app.post("/api/post/:id", validateAuth, toggleLikeHandler);
 
-  // End-point Responsible for commenting on a post
+  // End-Point Responsible for creating a comment on a post
   app.post("/api/comment/:id", validateAuth, createCommentHandler);
 
+  // End-Point Responsible for removing a comment on a post
   app.delete(
     "/api/posts/:postId/comment/:commentId",
     validateAuth,
     removeCommentHandler
   );
+
+  app.get("/api/posts", validateAuth, getPostsHandler);
 }

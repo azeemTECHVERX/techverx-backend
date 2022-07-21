@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import config from "../../config/default";
-import log from "../logger";
 
 function connect() {
   const dbUri = config.dbUri as string;
@@ -8,10 +7,10 @@ function connect() {
   return mongoose
     .connect(dbUri)
     .then(() => {
-      log.info("Database Connected!");
+      console.info("Database Connected!");
     })
     .catch((error) => {
-      log.error("db Error", error);
+      console.error("db Error", error);
       process.exit(1);
     });
 }

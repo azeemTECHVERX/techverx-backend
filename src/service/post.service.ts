@@ -80,3 +80,15 @@ export async function removeCommentService(req: Request, res: Response) {
     throw new Error(error);
   }
 }
+
+// Service Responsible for Getting the Posts
+export async function getPostsService(req: Request, res: Response) {
+  try {
+    // returning all the documents
+    return await Post.find({})
+      .populate("likes", "name")
+      .populate("comments.user", "name");
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}

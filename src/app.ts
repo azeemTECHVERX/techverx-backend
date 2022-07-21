@@ -2,7 +2,6 @@
 import express from "express";
 // Typescript Helpers
 import config from "../config/default";
-import log from "./logger";
 import connect from "./db/connect";
 import routes from "./routes";
 
@@ -17,7 +16,7 @@ const app = express();
 app.use(express.json());
 
 app.listen(port, host, () => {
-  log.info(`Server is listing at port: ${port}`);
+  console.info(`Server is Listening at post: ${port}`);
 
   connect();
   routes(app);

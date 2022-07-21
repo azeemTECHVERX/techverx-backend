@@ -1,6 +1,5 @@
 // Libraries
 import mongoose from "mongoose";
-import { UserDocument } from "./user.model";
 
 const postSchema = new mongoose.Schema(
   {

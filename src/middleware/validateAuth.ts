@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import User from "../model/user.model";
 import config from "../../config/default";
-import log from "../logger";
 
 export interface UserPayLoad {
   _id?: string;
@@ -32,7 +31,7 @@ const validateAuth = async (
     next();
   } catch (error) {
     debugger;
-    log.error(error);
+    console.error(error);
     return res.status(401).send("Authentication Error");
   }
 };
