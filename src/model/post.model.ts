@@ -5,6 +5,7 @@ const postSchema = new mongoose.Schema(
   {
     postBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     text: { type: String, required: true },
+    title: { type: String, required: true },
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     comments: [
       {

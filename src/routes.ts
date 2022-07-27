@@ -1,17 +1,26 @@
 import { Express, Request, Response } from "express";
+import cors from "cors";
 import {
   createCommentHandler,
   createPostHandler,
   removeCommentHandler,
   toggleLikeHandler,
   getPostsHandler,
+  removePostHandler,
 } from "./controller/post.controller";
-import { createUserHandler, loginHandler } from "./controller/user.controller";
+import {
+  createUserHandler,
+  getUserHandler,
+  loginHandler,
+} from "./controller/user.controller";
 import validateAuth from "./middleware/validateAuth";
 
 export default function (app: Express) {
   // End-Point Responsible for registering a user
   app.post("/api/users", createUserHandler);
+
+  // End-Point Responsible for fetching a user
+  app.get("/api/user", validateAuth, getUserHandler);
 
   // End-Point Responsible for logging in a user
   app.post("/api/login", loginHandler);
@@ -31,6 +40,8 @@ export default function (app: Express) {
     validateAuth,
     removeCommentHandler
   );
+
+  app.delete("/api/post/:id", validateAuth, removePostHandler);
 
   app.get("/api/posts", validateAuth, getPostsHandler);
 }

@@ -7,6 +7,7 @@ import { createUserService, loginUserService } from "../service/user.service";
 // Controller For Creating A User
 export async function createUserHandler(req: Request, res: Response) {
   try {
+    debugger;
     const user = await createUserService(req.body);
     if (user) {
       return res.send(omit(user.toJSON(), ["password", "tokens"]));
@@ -28,5 +29,16 @@ export async function loginHandler(req: Request, res: Response) {
   } catch (error: any) {
     console.error(error);
     return res.status(401).send({ error: error.message });
+  }
+}
+
+export async function getUserHandler(req: Request, res: Response) {
+  try {
+    return res
+      .status(200)
+      .send(omit(req.currentUser.toJSON(), ["password", "tokens"]));
+  } catch (error: any) {
+    console.error(error);
+    return res.status(404).send({ error: error.message });
   }
 }

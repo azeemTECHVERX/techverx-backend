@@ -6,6 +6,7 @@ import {
   removeCommentService,
   toggleLikeService,
   getPostsService,
+  removePostService,
 } from "../service/post.service";
 
 // Controller for Creating a Post
@@ -58,6 +59,17 @@ export async function getPostsHandler(req: Request, res: Response) {
   try {
     const posts = await getPostsService(req, res);
     return res.status(200).send(posts);
+  } catch (error: any) {
+    console.error(error);
+    return res.status(404).send({ error: error.message });
+  }
+}
+
+// Controller Responsible For Removing A Post
+export async function removePostHandler(req: Request, res: Response) {
+  try {
+    const post = await removePostService(req, res);
+    return res.status(200).send("Success");
   } catch (error: any) {
     console.error(error);
     return res.status(404).send({ error: error.message });

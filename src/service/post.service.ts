@@ -25,7 +25,7 @@ export async function toggleLikeService(req: Request) {
       ? post.likes.push(currentUser._id)
       : post.likes.splice(index, 1);
     await post.save();
-    return post;
+    return { post, status: index === -1 ? "Liked" : "Unliked" };
   } catch (error: any) {
     throw new Error(error);
   }
@@ -87,7 +87,22 @@ export async function getPostsService(req: Request, res: Response) {
     // returning all the documents
     return await Post.find({})
       .populate("likes", "name")
+      .populate("postBy", "name")
       .populate("comments.user", "name");
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}
+
+// Service Responsible for Removing A Post
+export async function removePostService(req: Request, res: Response) {
+  try {
+    const postId = req.params.id;
+    const post = await Post.findByIdAndRemove(postId);
+    if (!post) {
+      return new Error("No Post Found!");
+    }
+    return;
   } catch (error: any) {
     throw new Error(error);
   }
